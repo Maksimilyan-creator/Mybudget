@@ -1,0 +1,108 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:models="clr-namespace:My_budget.Models"
+        
+        xmlns:avalonia="http://oxyplot.org/avalonia"
+        
+        Width="800" Height="450"
+        x:Class="My_budget.WindowHome"
+        Title="Главное окно"
+        Background="#FAF0E6">
+    <StackPanel Orientation="Vertical">
+        <DockPanel Height="50">
+            <Image DockPanel.Dock="Left"
+                   Source="Assets/logout.png"
+                   x:Name="Exit" 
+                   Margin="15" 
+                   Width="24" 
+                   Height="24"
+                   Cursor="Hand"
+                   PointerPressed="Exit_OnPointerPressed">
+            </Image>
+            <TextBlock x:Name="BalanceTextBlock" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center"  FontSize="20" Margin="15" />
+            <TextBlock Name="TextBlockName" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="Black" Margin="15"/>
+        </DockPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <ListBox Grid.Column="0" Name="Navigator" SelectionMode="Single" SelectionChanged="Navigator_OnSelectionChanged">
+                <ListBoxItem Content="Доходы"/>
+                <ListBoxItem Content="Расходы"/>
+                <ListBoxItem Content="Диаграмма"/>
+            </ListBox>
+            
+            <ContentControl Grid.Column="1" Name="Income" IsVisible="False" >
+                <StackPanel>
+                    <Button x:Name="AddIncome" Content="Добавить доход"  Click="AddIncome_OnClick"  />
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <ListBox Name="ListTransactionsIncome" Height="325" SelectionChanged="ListTransactionsIncome_OnSelectionChanged">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate x:DataType="models:TransactionIncome">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="150" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" Orientation="Vertical">
+                                            <TextBlock Text="{Binding CategoryIncomeId }" />
+                                            <TextBlock Text="{Binding Amount, StringFormat={}{0} рублей}" />
+                                            <TextBlock Text="{Binding Date}" />
+                                        </StackPanel>
+                                        
+                                        <Button Grid.Column="1" Width="45" Height="45" x:Name="DropButton" Click="DropButton_OnClick">
+                                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <Image Source="Assets/delete.png" Width="24" Height="24"/>
+                                            </StackPanel>
+                                        </Button>
+                                        
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </ScrollViewer>
+                </StackPanel>
+            </ContentControl>
+            
+            <ContentControl Grid.Column="1" Name="Outlay" IsVisible="False" >
+                <StackPanel>
+                    <Button x:Name="AddOutlay" Content="Добавить расход"  Click="AddOutlay_OnClick" />
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <ListBox Name="ListTransactionsOutlay" Height="325" SelectionChanged="ListTransactionsOutlay_OnSelectionChanged">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate x:DataType="models:TransactionOutlay">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="150" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" Orientation="Vertical">
+                                            <TextBlock Text="{Binding CategoryOutlayId}" />
+                                            <TextBlock Text="{Binding Description}" />
+                                            <TextBlock Text="{Binding Amount, StringFormat={}{0} рублей}" />
+                                            <TextBlock Text="{Binding Date}" />
+                                        </StackPanel>
+                                        <Button Grid.Column="1" Width="45" Height="45" x:Name="DropButton2" Click="DropButton2_OnClick">
+                                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <Image Source="Assets/delete.png" Width="24" Height="24"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </ScrollViewer>
+                </StackPanel>
+            </ContentControl>
+            <ContentControl Grid.Column="1" Name="Diagram" IsVisible="False">
+                <StackPanel>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Здесь должна была быть диаграмма</TextBlock>
+                </StackPanel>
+            </ContentControl>
+        </Grid>
+    </StackPanel>
+</Window>

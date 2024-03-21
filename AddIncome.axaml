@@ -1,0 +1,39 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:models="clr-namespace:My_budget.Models" 
+        mc:Ignorable="d" Width="300" Height="350"
+        x:Class="My_budget.AddIncome"
+        Title="Добавление дохода"
+        Background="#FAF0E6">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <ComboBox x:Name="CategoryComboBox" Grid.Row="0" Margin="10" Width="200">
+            <ComboBox.ItemTemplate>
+                <DataTemplate x:DataType="models:CategoryIncome">
+                    <TextBlock Text="{Binding CategoryIncomeName}" Margin="0,15"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        
+        <DatePicker x:Name="DateDatePicker" Grid.Row="1" Margin="10" Width="200"/>
+        
+        <!--        <TextBlock Text="Описание:" Grid.Row="2" Margin="10"/>
+        <TextBox x:Name="DescriptionTextBox" Grid.Row="2" Margin="10" Width="200"/>
+        -->
+        
+        <TextBox x:Name="AmountTextBox" Watermark="Сумма" Grid.Row="3" Margin="10" Width="200"/>
+
+        <Button Content="Добавить" Grid.Row="4" Margin="10" Click="Button_OnClick"/>
+        <Button x:Name="Close" Content="Закрыть" Grid.Row="5" Margin="10" Click="Close_OnClick" ></Button>
+    </Grid>
+</Window>
